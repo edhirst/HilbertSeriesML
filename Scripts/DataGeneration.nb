@@ -1,0 +1,1189 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     47438,       1181]
+NotebookOptionsPosition[     44518,       1135]
+NotebookOutlinePosition[     44914,       1151]
+CellTagsIndexPosition[     44871,       1148]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ "Script to generate data of fake HS expansions in:\na) Non-Palindromic form \
+with variable embedding weights for NN Regression\nb) Palindromic form with \
+variable Gorenstein index & dimension for NN Classification\nc) Both \
+Palindromic & Non-Palindromic forms for NN Binary Classification\nd) General \
+Non-Palindromic form for NN Binary Classification with real data\n\
+##############################################################################\
+##############################################################################\
+####################\na) Generating data of form: P(x)/ ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    SubscriptBox["\[CapitalPi]", 
+     RowBox[{"i", "=", "1"}]], "r"], TraditionalForm]],ExpressionUUID->
+  "e2013390-1baa-4bc9-ab56-10c0ae67465f"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{"1", " ", "-", " ", 
+     SuperscriptBox["x", 
+      SubscriptBox["p", "i"]]}], ")"}], TraditionalForm]],ExpressionUUID->
+  "08b0539d-4e2c-4264-8707-9670cf4fb0cf"],
+ "\nDefine function & generation hyperparameters"
+}], "Text",
+ CellChangeTimes->{
+  3.8158273485289526`*^9, {3.822651017945634*^9, 3.82265114641267*^9}, {
+   3.822651639775803*^9, 3.8226516501707582`*^9}, {3.822666454918797*^9, 
+   3.822666464292232*^9}, {3.822666626724751*^9, 3.8226667368918858`*^9}, {
+   3.8226668154886312`*^9, 3.822666815745233*^9}, {3.8226671357275057`*^9, 
+   3.8226671640111637`*^9}, {3.822667197454878*^9, 3.82266719926232*^9}, {
+   3.822667278023354*^9, 3.822667279299891*^9}, {3.8226677895995703`*^9, 
+   3.822667809395418*^9}},ExpressionUUID->"59e34db3-b6af-43b5-b9f7-\
+27b3b57f7417"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"HS", "[", 
+     RowBox[{"numcoefs_", ",", "coefs_", ",", "d_", ",", "r_"}], "]"}], ":=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"1", "+", 
+       RowBox[{
+        RowBox[{"x", "^", 
+         RowBox[{"Range", "[", 
+          RowBox[{"1", ",", "d"}], "]"}]}], ".", "numcoefs"}]}], ")"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"Product", "[", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          RowBox[{"x", "^", 
+           RowBox[{"(", 
+            RowBox[{"Part", "[", 
+             RowBox[{"coefs", ",", "j"}], "]"}], ")"}]}]}], ")"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"j", ",", "1", ",", "r"}], "}"}]}], "]"}], ")"}]}]}], ";", 
+   " ", 
+   RowBox[{"(*", 
+    RowBox[{
+    "General", " ", "HS", " ", "form", " ", "with", " ", "repeated", " ", 
+     "weights", " ", "written", " ", "explicitly"}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"datasize", "=", "10000"}], ";", " ", 
+   RowBox[{"HSparams", "=", 
+    RowBox[{"{", "}"}]}], ";", " ", 
+   RowBox[{"HScoeffs", "=", 
+    RowBox[{"{", "}"}]}], ";", "  ", 
+   RowBox[{"(*", 
+    RowBox[{
+    "number", " ", "of", " ", "HS", " ", "to", " ", "generate", " ", "and", 
+     " ", "lists", " ", "to", " ", "store", " ", "them", " ", "in", " ", 
+     "for", " ", "exporting"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"truncdegmin", " ", "=", " ", "1000"}], ";", 
+   RowBox[{"numbertruncdeg", "=", "10"}], ";"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "order", " ", "to", " ", "calculate", " ", "the", " ", "expansion", " ", 
+      "to"}], " ", "&"}], " ", "number", " ", "of", " ", "coefficients", " ", 
+    "past", " ", "the", " ", "maximum", " ", "order", " ", "to", " ", 
+    "save"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"d", " ", "=", " ", "3"}], ";"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{"numerator", " ", "degree"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"r", " ", "=", " ", "3"}], ";", "  ", 
+  RowBox[{"(*", 
+   RowBox[{"number", " ", "of", " ", "weights"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"cb", " ", "=", " ", "10"}], " ", ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "bound", " ", "for", " ", "the", " ", "integer", " ", "data", " ", 
+    "generation"}], "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.822666745353189*^9, 3.8226667663224077`*^9}, {
+  3.822666807560341*^9, 3.822666835882019*^9}, {3.8226670053076267`*^9, 
+  3.82266703583006*^9}, {3.822667244614954*^9, 3.822667259143993*^9}, {
+  3.8226672929794083`*^9, 3.822667293678093*^9}, {3.8226674992166777`*^9, 
+  3.822667546300723*^9}, {3.8226676409103947`*^9, 3.8226676632194757`*^9}, {
+  3.822667720957651*^9, 3.822667782972888*^9}, {3.8226678163290462`*^9, 
+  3.822667825034134*^9}},ExpressionUUID->"95eb3a97-a0b0-421b-945a-\
+9f76288f6861"],
+
+Cell["\<\
+Generate data & Export to data-files (function parameters to ML & HS \
+coefficients respectively)\
+\>", "Text",
+ CellChangeTimes->{{3.822667584139962*^9, 
+  3.822667617346382*^9}},ExpressionUUID->"6e999baf-2b0f-40bf-bfe6-\
+0f13884c185c"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"While", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Length", "[", "HScoeffs", "]"}], "<", "datasize"}], " ", ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"numcoefs", "=", " ", 
+      RowBox[{"RandomInteger", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "cb"}], ",", "cb"}], "}"}], ",", "d"}], "]"}]}], ";", 
+     " ", 
+     RowBox[{"(*", 
+      RowBox[{
+      "coefficients", " ", "of", " ", "numerator", " ", "polynomial"}], 
+      "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"coefs", "=", " ", 
+      RowBox[{"RandomInteger", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"1", ",", "cb"}], "}"}], ",", "r"}], "]"}]}], ";", " ", 
+     RowBox[{"(*", 
+      RowBox[{"denominator", " ", "weights"}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Total", "[", "coefs", "]"}], ">", " ", "d"}], ",", " ", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{
+         "ensure", " ", "the", " ", "HS", " ", "expansion", " ", "will", " ", 
+          "be", " ", "non"}], "-", "terminating"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Expansion", " ", "=", " ", 
+         RowBox[{"CoefficientList", "[", 
+          RowBox[{
+           RowBox[{"Normal", "[", 
+            RowBox[{"Series", "[", 
+             RowBox[{
+              RowBox[{"HS", "[", 
+               RowBox[{"numcoefs", ",", "coefs", ",", "d", ",", "r"}], "]"}], 
+              ",", 
+              RowBox[{"{", 
+               RowBox[{"x", ",", "0", ",", 
+                RowBox[{"truncdegmin", "+", "numbertruncdeg", "-", "1"}]}], 
+               "}"}]}], "]"}], "]"}], ",", "x"}], "]"}]}], ";", " ", 
+        RowBox[{"(*", 
+         RowBox[{
+         "Taylor", " ", "expand", " ", "the", " ", "HS", " ", "function", " ",
+           "and", " ", "extract", " ", "coefficients"}], "*)"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Min", "[", "Expansion", "]"}], "\[GreaterEqual]", "0"}], 
+          ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{
+            "ensure", " ", "all", " ", "terms", " ", "are", " ", "non"}], "-", 
+            RowBox[{
+            "negative", " ", "st", " ", "HS", " ", "mimics", " ", "this", " ",
+              "physical", " ", "requirement"}]}], "*)"}], 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"HSparams", ",", 
+             RowBox[{"Sort", "[", "coefs", "]"}]}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"HScoeffs", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Expansion", "[", 
+                RowBox[{"[", 
+                 RowBox[{";;", "101"}], "]"}], "]"}], ",", 
+               RowBox[{"Expansion", "[", 
+                RowBox[{"[", 
+                 RowBox[{
+                  RowBox[{"truncdegmin", "+", "1"}], ";;"}], "]"}], "]"}]}], 
+              "}"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+      "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]], "Input",
+ CellChangeTimes->{
+  3.8226675306499453`*^9, {3.822667657151956*^9, 3.822667690157083*^9}, {
+   3.8226678984117737`*^9, 
+   3.822667993679102*^9}},ExpressionUUID->"63460c9b-8e29-4197-aa5a-\
+675430bf666a"],
+
+Cell[BoxData[{
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<.\\\\Data\\\\Regressor-weights.txt\>\"", ",", "HSparams"}], 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<.\\\\Data\\\\Regressor-HS.txt\>\"", ",", "HScoeffs"}], "]"}], 
+  " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"...", "confirm", " ", "correct", " ", "paths"}], 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{
+  3.822667567936007*^9, {3.822667650767426*^9, 3.822667679717564*^9}, {
+   3.8226678382697077`*^9, 3.822667869061597*^9}, {3.8226687779396343`*^9, 
+   3.8226687828965282`*^9}},ExpressionUUID->"076b0bb0-e0f0-462b-bd6c-\
+10c6b2ef44cf"],
+
+Cell[TextData[{
+ "############################################################################\
+##############################################################################\
+######################\nb) Generating data of form: P(palindromic)/ ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"1", " ", "-", " ", 
+      SuperscriptBox["x", 
+       SubscriptBox["r", "G"]]}], ")"}], 
+    RowBox[{"dim", "+", "1"}]], TraditionalForm]],ExpressionUUID->
+  "7f05f157-5c76-4855-bfdf-7f72097f9c93"],
+ "\nDefine function & generation hyperparameters"
+}], "Text",
+ CellChangeTimes->{{3.822666631927772*^9, 
+  3.822666646166066*^9}},ExpressionUUID->"ced72788-73ee-42ee-a8a8-\
+c5953714b278"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"HSPalin", "[", 
+    RowBox[{"numcoefs_", ",", "d_", ",", "rG_", ",", "dim_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{
+       RowBox[{"x", "^", 
+        RowBox[{"Range", "[", 
+         RowBox[{"1", ",", 
+          RowBox[{"d", "-", "1"}]}], "]"}]}], ".", "numcoefs"}], "+", 
+      RowBox[{"x", "^", "d"}]}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        RowBox[{"x", "^", 
+         RowBox[{"(", "rG", ")"}]}]}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{"dim", "+", "1"}], ")"}]}], ")"}]}]}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{"Palindromic", " ", "function", " ", "form"}], "*)"}]}]], "Input",
+ CellChangeTimes->{{3.8226516570363092`*^9, 3.822651665181538*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"7aa61bd5-53ab-4262-a9d2-b984b3571119"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"datasize", "=", "10000"}], ";", " ", 
+  RowBox[{"HSparamsPalin", "=", 
+   RowBox[{"{", "}"}]}], ";", " ", 
+  RowBox[{"HScoeffsPalin", "=", 
+   RowBox[{"{", "}"}]}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "number", " ", "of", " ", "HS", " ", "to", " ", "generate", " ", "and", 
+    " ", "lists", " ", "to", " ", "store", " ", "them", " ", "in", " ", "for",
+     " ", "exporting"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"truncdegmin", " ", "=", " ", "1000"}], ";", 
+  RowBox[{"numbertruncdeg", "=", "10"}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "order", " ", "to", " ", "calculate", " ", "the", " ", "expansion", " ", 
+      "to"}], " ", "&"}], " ", "number", " ", "of", " ", "coefficients", " ", 
+    "past", " ", "the", " ", "maximum", " ", "order", " ", "to", " ", 
+    "save"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"d", " ", "=", " ", "5"}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{"numerator", " ", "degree"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"cb", " ", "=", " ", "50"}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "bound", " ", "for", " ", "the", " ", "integer", " ", "data", " ", 
+    "generation"}], "*)"}]}]], "Input",
+ CellChangeTimes->{{3.8158289781258545`*^9, 3.815828978269474*^9}, {
+  3.8165328032497225`*^9, 3.8165328037777047`*^9}, {3.816532866757268*^9, 
+  3.8165328899702063`*^9}, {3.8165359514748335`*^9, 3.8165359527110357`*^9}, {
+  3.822651701650338*^9, 3.8226517596444263`*^9}, {3.822663451550577*^9, 
+  3.822663473355545*^9}, {3.8226635210069103`*^9, 3.822663521203883*^9}, {
+  3.822664115654098*^9, 3.8226641159785852`*^9}, {3.822664723736191*^9, 
+  3.822664724098548*^9}, {3.822666770759015*^9, 
+  3.8226667718371477`*^9}},ExpressionUUID->"2f30db35-036c-44c3-aa13-\
+b39b6af807e3"],
+
+Cell["\<\
+Generate Palindromic data & Export to data-files (function parameters to ML & \
+HS coefficients respectively)\
+\>", "Text",
+ CellChangeTimes->{{3.8226517930069017`*^9, 3.8226518575178022`*^9}, {
+  3.82266760287928*^9, 
+  3.82266762203435*^9}},ExpressionUUID->"9766d0d3-ab75-4deb-921c-\
+5a9d8556179b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"While", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Length", "[", "HScoeffsPalin", "]"}], "<", "datasize"}], " ", 
+    ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"coefs", "=", " ", 
+      RowBox[{"RandomInteger", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "cb"}], ",", "cb"}], "}"}], ",", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"d", "-", "1"}], ")"}], "/", "2"}]}], "]"}]}], ";", "  ", 
+     RowBox[{"(*", 
+      RowBox[{
+       RowBox[{"if", " ", "d", " ", "odd"}], " ", "=", 
+       RowBox[{
+        RowBox[{">", " ", 
+         RowBox[{
+         "number", " ", "of", " ", "numerator", " ", "terms", " ", "even"}]}],
+         " ", "=", 
+        RowBox[{
+         RowBox[{">", " ", 
+          RowBox[{
+           RowBox[{
+           "ignoring", " ", "first", " ", "and", " ", "last", " ", 
+            "coefficients", " ", 
+            RowBox[{"(", 
+             RowBox[{"normalised", " ", "to", " ", "1"}], ")"}], " ", "need", 
+            " ", "to", " ", "generate", " ", 
+            RowBox[{"(", 
+             RowBox[{"d", "+", "1"}], ")"}]}], "-", 
+           RowBox[{"2", " ", "coefficients"}]}]}], " ", "=", 
+         RowBox[{">", " ", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{"d", "-", "1"}], ")"}], "/", "2"}], " ", "independent", 
+           " ", "integers", " ", "as", " ", "palindromicity", " ", "doubles", 
+           " ", "their", " ", "use"}]}]}]}]}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"coefsPalin", " ", "=", " ", 
+      RowBox[{"Join", "[", 
+       RowBox[{"coefs", ",", 
+        RowBox[{"Reverse", "[", "coefs", "]"}]}], "]"}]}], ";", " ", 
+     RowBox[{"(*", 
+      RowBox[{
+       RowBox[{"if", " ", "d", " ", "even"}], " ", "=", 
+       RowBox[{">", " ", 
+        RowBox[{"change", " ", 
+         RowBox[{"to", ":", " ", 
+          RowBox[{
+           RowBox[{"Join", "[", 
+            RowBox[{"coefs", ",", 
+             RowBox[{"Reverse", "[", 
+              RowBox[{"coefs", "[", 
+               RowBox[{"[", 
+                RowBox[{":", 
+                 RowBox[{"-", "1"}]}], "]"}], "]"}], "]"}]}], "]"}], " ", 
+           "such", " ", "that", " ", "middle", " ", "coefficient", " ", "not",
+            " ", "repeated"}]}]}]}]}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"rG", "=", " ", 
+      RowBox[{"RandomInteger", "[", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "5"}], "}"}], "]"}]}], ";", " ", 
+     RowBox[{"(*", 
+      RowBox[{"Gorenstein", " ", "index"}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"dim", " ", "=", " ", 
+      RowBox[{"RandomInteger", "[", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "5"}], "}"}], "]"}]}], ";", " ", 
+     RowBox[{"(*", "dimension", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"rG", "*", "dim"}], ">", " ", "d"}], ",", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{
+         "ensure", " ", "the", " ", "HS", " ", "expansion", " ", "will", " ", 
+          "be", " ", "non"}], "-", "terminating"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Expansion", " ", "=", " ", 
+         RowBox[{"CoefficientList", "[", 
+          RowBox[{
+           RowBox[{"Normal", "[", 
+            RowBox[{"Series", "[", 
+             RowBox[{
+              RowBox[{"HSPalin", "[", 
+               RowBox[{"coefsPalin", ",", "d", ",", "rG", ",", "dim"}], "]"}],
+               ",", 
+              RowBox[{"{", 
+               RowBox[{"x", ",", "0", ",", 
+                RowBox[{"truncdegmin", "+", "numbertruncdeg", "-", "1"}]}], 
+               "}"}]}], "]"}], "]"}], ",", "x"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Min", "[", "Expansion", "]"}], "\[GreaterEqual]", "0"}], 
+          ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{
+            "ensure", " ", "all", " ", "terms", " ", "are", " ", "non"}], "-", 
+            RowBox[{
+            "negative", " ", "st", " ", "HS", " ", "mimics", " ", "this", " ",
+              "physical", " ", "requirement"}]}], "*)"}], 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"HSparamsPalin", ",", 
+             RowBox[{"{", 
+              RowBox[{"d", ",", "rG", ",", "dim"}], "}"}]}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"HScoeffsPalin", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Expansion", "[", 
+                RowBox[{"[", 
+                 RowBox[{";;", "101"}], "]"}], "]"}], ",", 
+               RowBox[{"Expansion", "[", 
+                RowBox[{"[", 
+                 RowBox[{
+                  RowBox[{"truncdegmin", "+", "1"}], ";;"}], "]"}], "]"}]}], 
+              "}"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+      "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]], "Input",
+ CellChangeTimes->{
+  3.815828305287587*^9, {3.815828350281455*^9, 3.815828350752491*^9}, {
+   3.8158285483749*^9, 3.815828620909333*^9}, {3.8158287477508554`*^9, 
+   3.8158287479855404`*^9}, {3.8158289656340065`*^9, 3.81582896619073*^9}, {
+   3.816532859213847*^9, 3.816532863370762*^9}, {3.816540115643503*^9, 
+   3.8165401179519234`*^9}, {3.82266325877861*^9, 3.8226633409892273`*^9}, {
+   3.822663409814887*^9, 3.82266343964192*^9}, {3.822663612072402*^9, 
+   3.82266378576481*^9}, {3.822663836513442*^9, 3.822663955692169*^9}, {
+   3.822666776795929*^9, 
+   3.822666777835135*^9}},ExpressionUUID->"92eef982-84fc-4c22-b1ff-\
+63e0d68593d9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<..\\\\Data\\\\Classifier-params.txt\>\"", ",", "HSparamsPalin"}], 
+   "]"}], " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<..\\\\Data\\\\Classifier-HS.txt\>\"", ",", "HScoeffsPalin"}], 
+   "]"}], " "}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"...", "confirm", " ", "correct", " ", "paths"}], 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{
+  3.81582928331359*^9, {3.822663494030772*^9, 3.822663500525419*^9}, {
+   3.8226641703725*^9, 3.822664216315384*^9}, {3.822664587508779*^9, 
+   3.822664596934938*^9}, {3.822666784793853*^9, 3.822666785915522*^9}, 
+   3.822668775209598*^9},ExpressionUUID->"1ed9885e-d983-4dfc-96de-\
+35574b08f1b5"],
+
+Cell[BoxData["\<\"..\\\\Data\\\\Classifier-params.txt\"\>"], "Output",
+ CellChangeTimes->{3.8158292638711505`*^9, 3.816535766519456*^9, 
+  3.8165365493285904`*^9, 3.81654146924631*^9, 3.8226641293394337`*^9, 
+  3.822664291596999*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"656d3257-ec28-4f13-a829-c9851854157e"],
+
+Cell[BoxData["\<\"..\\\\Data\\\\Classifier-HS.txt\"\>"], "Output",
+ CellChangeTimes->{3.8158292638711505`*^9, 3.816535766519456*^9, 
+  3.8165365493285904`*^9, 3.81654146924631*^9, 3.8226641293394337`*^9, 
+  3.82266429159834*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"b1244150-1439-4ecb-be1b-d506256a03c9"]
+}, Open  ]],
+
+Cell["\<\
+##############################################################################\
+##############################################################################\
+####################
+c) Generating palindromic & non-palindromic data for binary ML: 
+Define functions & generation hyperparameters\
+\>", "Text",
+ CellChangeTimes->{{3.816707813865239*^9, 3.8167078387493143`*^9}, 
+   3.822651010979463*^9, {3.822651149484198*^9, 3.8226511501113358`*^9}, {
+   3.822651605458518*^9, 3.822651620863329*^9}, {3.822651963092638*^9, 
+   3.822651963726368*^9}, {3.822666466948886*^9, 
+   3.822666467029442*^9}},ExpressionUUID->"24a22525-8d8e-4a96-b4ad-\
+0361588625e4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"HSNonPalinBC", "[", 
+    RowBox[{"numcoefs_", ",", "d_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{
+       RowBox[{"x", "^", 
+        RowBox[{"Range", "[", 
+         RowBox[{"1", ",", "d"}], "]"}]}], ".", "numcoefs"}]}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        RowBox[{"x", "^", "5"}]}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{"5", "+", "1"}], ")"}]}], ")"}]}]}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{"Non", "-", 
+    RowBox[{"Palindromic", " ", "function", " ", "form"}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"HSPalinBC", "[", 
+    RowBox[{"numcoefs_", ",", "d_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{
+       RowBox[{"x", "^", 
+        RowBox[{"Range", "[", 
+         RowBox[{"1", ",", 
+          RowBox[{"d", "-", "1"}]}], "]"}]}], ".", "numcoefs"}], " ", "+", 
+      RowBox[{"x", "^", "d"}]}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "-", 
+        RowBox[{"x", "^", "5"}]}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{"5", "+", "1"}], ")"}]}], ")"}]}]}], ";", "  ", 
+  RowBox[{"(*", 
+   RowBox[{"Palindromic", " ", "function", " ", "form"}], "*)"}], 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"arbitarily", " ", "choose", " ", "rG"}], " ", "=", " ", 
+    RowBox[{"dim", " ", "=", " ", "5"}]}], "*)"}]}]], "Input",
+ CellChangeTimes->{{3.816707861854308*^9, 3.816707909807205*^9}, 
+   3.8167079581960278`*^9, {3.8167080566472335`*^9, 3.8167080578200836`*^9}, {
+   3.816708340830962*^9, 3.8167083932388716`*^9}, {3.81670844251903*^9, 
+   3.81670844325506*^9}, {3.822651479201991*^9, 3.8226515169944344`*^9}, {
+   3.82266684850345*^9, 3.822666861026196*^9}, {3.822667382456305*^9, 
+   3.822667383818974*^9}},ExpressionUUID->"c84a046d-3d43-4ff7-8d35-\
+b39fcba9bf4e"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"datasize", "=", "10000"}], ";", " ", 
+  RowBox[{"HScoeffsNonPalinBC", "=", 
+   RowBox[{"{", "}"}]}], ";", " ", 
+  RowBox[{"HScoeffsPalinBC", " ", "=", " ", 
+   RowBox[{"{", "}"}]}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "number", " ", "of", " ", "HS", " ", "to", " ", "generate", " ", "and", 
+    " ", "lists", " ", "to", " ", "store", " ", "them", " ", "in", " ", "for",
+     " ", "exporting"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"truncdegmin", " ", "=", " ", "1000"}], ";", 
+  RowBox[{"numbertruncdeg", "=", "10"}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "order", " ", "to", " ", "calculate", " ", "the", " ", "expansion", " ", 
+      "to"}], " ", "&"}], " ", "number", " ", "of", " ", "coefficients", " ", 
+    "past", " ", "the", " ", "maximum", " ", "order", " ", "to", " ", 
+    "save"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"d", " ", "=", " ", "9"}], ";", 
+  RowBox[{"(*", 
+   RowBox[{"numerator", " ", "degree"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"cb", " ", "=", " ", "50"}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "bound", " ", "for", " ", "the", " ", "integer", " ", "data", " ", 
+    "generation"}], "*)"}]}]], "Input",
+ CellChangeTimes->{{3.816707988807972*^9, 3.8167079894871264`*^9}, {
+  3.816708063182564*^9, 3.8167080758606815`*^9}, {3.816708125613891*^9, 
+  3.8167081268556705`*^9}, {3.8167081902538652`*^9, 3.8167082188509693`*^9}, {
+  3.816708424790462*^9, 3.8167084334473076`*^9}, {3.8167089243168707`*^9, 
+  3.816708924712756*^9}, {3.8167090177983923`*^9, 3.816709040182942*^9}, {
+  3.822651165749645*^9, 3.822651217682206*^9}, {3.822651287094531*^9, 
+  3.8226513906182404`*^9}, {3.822651674767717*^9, 3.82265172585117*^9}, {
+  3.822663401986644*^9, 3.8226634044301357`*^9}, {3.8226640411617002`*^9, 
+  3.82266404159042*^9}, {3.822664328599968*^9, 3.822664328916627*^9}, {
+  3.8226647294897118`*^9, 3.82266472983173*^9}, {3.8226668967188587`*^9, 
+  3.822666899392598*^9}, {3.822667012911317*^9, 3.82266702202407*^9}, {
+  3.822667426159788*^9, 
+  3.822667429104303*^9}},ExpressionUUID->"6f514df3-9832-43e1-ad24-\
+cdc867592ec8"],
+
+Cell["Generate Non-Palindromic data & Export to data-file", "Text",
+ CellChangeTimes->{{3.822651569219728*^9, 3.822651585967697*^9}, 
+   3.822651861672514*^9},ExpressionUUID->"5e7bfebe-2caf-403d-bc35-\
+3fdded339836"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"While", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Length", "[", "HScoeffsNonPalinBC", "]"}], "<", "datasize"}], 
+    " ", ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"coefs", "=", " ", 
+      RowBox[{"RandomInteger", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "cb"}], ",", "cb"}], "}"}], ",", "d"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Expansion", " ", "=", " ", 
+      RowBox[{"CoefficientList", "[", 
+       RowBox[{
+        RowBox[{"Normal", "[", 
+         RowBox[{"Series", "[", 
+          RowBox[{
+           RowBox[{"HSNonPalinBC", "[", 
+            RowBox[{"coefs", ",", "d"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", "0", ",", 
+             RowBox[{"truncdegmin", "+", "numbertruncdeg", "-", "1"}]}], 
+            "}"}]}], "]"}], "]"}], ",", "x"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Min", "[", "Expansion", "]"}], "\[GreaterEqual]", "0"}], ",",
+        "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"HScoeffsNonPalinBC", ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Expansion", "[", 
+             RowBox[{"[", 
+              RowBox[{";;", "101"}], "]"}], "]"}], ",", 
+            RowBox[{"Expansion", "[", 
+             RowBox[{"[", 
+              RowBox[{
+               RowBox[{"truncdegmin", "+", "1"}], ";;"}], "]"}], "]"}]}], 
+           "}"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<..\\\\Data\\\\BC-NonPalindromicHS.txt\>\"", ",", 
+    "HScoeffsNonPalinBC"}], "]"}], " ", 
+  RowBox[{"(*", 
+   RowBox[{"...", "confirm", " ", "correct", " ", "path"}], 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.816708089372798*^9, 3.816708094644762*^9}, {
+   3.816708155234163*^9, 3.8167082665419683`*^9}, {3.8167083151807876`*^9, 
+   3.8167083227928867`*^9}, {3.8167084062440825`*^9, 3.816708410110733*^9}, 
+   3.8167084609826336`*^9, {3.8167085297644525`*^9, 3.816708561499034*^9}, {
+   3.8167086010700164`*^9, 3.816708615612136*^9}, {3.816708817051653*^9, 
+   3.81670882229708*^9}, {3.8167089710315237`*^9, 3.81670897135505*^9}, {
+   3.822651419529798*^9, 3.8226514451222897`*^9}, 3.822651550207635*^9, {
+   3.822663308396701*^9, 3.822663315763907*^9}, {3.8226633896506367`*^9, 
+   3.822663399983211*^9}, {3.8226639965953836`*^9, 3.822663998284821*^9}, 
+   3.822664227613824*^9, {3.8226645830165462`*^9, 3.822664583238559*^9}, {
+   3.822666865450433*^9, 3.8226668655363398`*^9}, {3.82266690431289*^9, 
+   3.8226669170331984`*^9}, 3.822667389158909*^9, {3.822667435085578*^9, 
+   3.822667441348063*^9}},ExpressionUUID->"99fed337-79b3-43ad-b19e-\
+608bb62790d4"],
+
+Cell[BoxData["\<\"..\\\\Data\\\\BC-NonPalindromicHS.txt\"\>"], "Output",
+ CellChangeTimes->{{3.8226643260075693`*^9, 3.822664335613244*^9}},
+ CellLabel->"Out[21]=",ExpressionUUID->"fe32114e-c004-4ca5-88b4-e3de2d37262b"]
+}, Open  ]],
+
+Cell["\<\
+Generate Palindromic data & Export to data-file (same form as first section)\
+\>", "Text",
+ CellChangeTimes->{{3.822651593852488*^9, 3.82265159634223*^9}, 
+   3.8226518637729*^9, {3.822664015221217*^9, 
+   3.822664020624962*^9}},ExpressionUUID->"7aa38a09-1fd3-45af-933e-\
+aa1809c240d6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"While", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Length", "[", "HScoeffsPalinBC", "]"}], "<", "datasize"}], " ", 
+    ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"coefs", "=", " ", 
+      RowBox[{"RandomInteger", "[", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"-", "cb"}], ",", "cb"}], "}"}], ",", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"d", "-", "1"}], ")"}], "/", "2"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"coefsPalin", " ", "=", " ", 
+      RowBox[{"Join", "[", 
+       RowBox[{"coefs", ",", 
+        RowBox[{"Reverse", "[", "coefs", "]"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Expansion", " ", "=", " ", 
+      RowBox[{"CoefficientList", "[", 
+       RowBox[{
+        RowBox[{"Normal", "[", 
+         RowBox[{"Series", "[", 
+          RowBox[{
+           RowBox[{"HSPalinBC", "[", 
+            RowBox[{"coefsPalin", ",", "d"}], "]"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"x", ",", "0", ",", 
+             RowBox[{"truncdegmin", "+", "numbertruncdeg", "-", "1"}]}], 
+            "}"}]}], "]"}], "]"}], ",", "x"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Min", "[", "Expansion", "]"}], "\[GreaterEqual]", "0"}], ",",
+        "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"HScoeffsPalinBC", ",", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Expansion", "[", 
+             RowBox[{"[", 
+              RowBox[{";;", "101"}], "]"}], "]"}], ",", 
+            RowBox[{"Expansion", "[", 
+             RowBox[{"[", 
+              RowBox[{
+               RowBox[{"truncdegmin", "+", "1"}], ";;"}], "]"}], "]"}]}], 
+           "}"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+   "\"\<..\\\\Data\\\\BC-PalindromicHS.txt\>\"", ",", "HScoeffsPalinBC"}], 
+   " ", "]"}], "  ", 
+  RowBox[{"(*", 
+   RowBox[{"...", "confirm", " ", "correct", " ", "path"}], 
+   "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.816708235255714*^9, 3.8167082383025684`*^9}, {
+   3.8167082691301045`*^9, 3.816708269977434*^9}, 3.81670846793703*^9, {
+   3.8167086219448433`*^9, 3.8167086225463395`*^9}, {3.8167086595071487`*^9, 
+   3.8167086655106435`*^9}, 3.8167087076447096`*^9, {3.816708829914976*^9, 
+   3.8167088341506433`*^9}, {3.816708979482235*^9, 3.816708979822574*^9}, 
+   3.8226514150065117`*^9, {3.8226514513096237`*^9, 3.8226514545606213`*^9}, {
+   3.8226633525450563`*^9, 3.8226633866210957`*^9}, {3.8226640252435637`*^9, 
+   3.822664028334744*^9}, 3.822664232078478*^9, {3.8226645252056637`*^9, 
+   3.822664578243478*^9}, {3.822666868876877*^9, 3.822666869002405*^9}, {
+   3.822666907358308*^9, 
+   3.822666919277027*^9}},ExpressionUUID->"03a0d916-1ca9-4312-9524-\
+42896030e9cc"],
+
+Cell[BoxData["\<\"..\\\\Data\\\\BC-PalindromicHS.txt\"\>"], "Output",
+ CellChangeTimes->{3.822664338506708*^9},
+ CellLabel->"Out[23]=",ExpressionUUID->"022d8fda-77da-49bf-9a58-db3ecb38705d"]
+}, Open  ]],
+
+Cell[TextData[{
+ "############################################################################\
+##############################################################################\
+######################\nd) Generating data of form: P(x)/ ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    SubscriptBox["\[CapitalPi]", 
+     RowBox[{"i", "=", "1"}]], "r"], TraditionalForm]],ExpressionUUID->
+  "c3023bc1-9e95-4616-990c-1ca377aace6b"],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"1", " ", "-", " ", 
+      SuperscriptBox["x", 
+       SubscriptBox["p", "i"]]}], ")"}], 
+    SubscriptBox["q", "i"]], TraditionalForm]],ExpressionUUID->
+  "75025ea6-4a11-46cb-8e46-1b424ea96a14"],
+ "\nDefine function & generation hyperparameters"
+}], "Text",
+ CellChangeTimes->{
+  3.822667214671534*^9, {3.8226673495851603`*^9, 3.82266734970485*^9}, {
+   3.822668366115548*^9, 
+   3.822668366630527*^9}},ExpressionUUID->"5f551069-61fc-4aa2-bc51-\
+778ba8a4066d"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"HSBC", "[", 
+    RowBox[{
+    "numcoefs_", ",", "intcoefs_", ",", "extcoefs_", ",", "d_", ",", "r_"}], 
+    "]"}], ":=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{
+       RowBox[{"x", "^", 
+        RowBox[{"Range", "[", 
+         RowBox[{"1", ",", "d"}], "]"}]}], ".", "numcoefs"}]}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{"Product", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"1", "-", 
+          RowBox[{"x", "^", 
+           RowBox[{"(", 
+            RowBox[{"Part", "[", 
+             RowBox[{"intcoefs", ",", "j"}], "]"}], ")"}]}]}], ")"}], "^", 
+        RowBox[{"(", 
+         RowBox[{"Part", "[", 
+          RowBox[{"extcoefs", ",", "j"}], "]"}], ")"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"j", ",", "1", ",", "r"}], "}"}]}], "]"}], ")"}]}]}], ";", 
+  " ", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"Most", " ", "general", " ", "Non"}], "-", 
+    RowBox[{"Palindromic", " ", "function", " ", "form"}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"datasize", "=", "10000"}], ";", " ", 
+  RowBox[{"HSparamsBC", "=", 
+   RowBox[{"{", "}"}]}], ";", " ", 
+  RowBox[{"HScoeffsBC", "=", 
+   RowBox[{"{", "}"}]}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+   "number", " ", "of", " ", "HS", " ", "to", " ", "generate", " ", "and", 
+    " ", "lists", " ", "to", " ", "store", " ", "them", " ", "in", " ", "for",
+     " ", "exporting"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"truncdegmin", " ", "=", " ", "1000"}], ";", "  ", 
+  RowBox[{"numbertruncdeg", "=", "10"}], ";", " ", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+     "order", " ", "to", " ", "calculate", " ", "the", " ", "expansion", " ", 
+      "to"}], " ", "&"}], " ", "number", " ", "of", " ", "coefficients", " ", 
+    "past", " ", "the", " ", "maximum", " ", "order", " ", "to", " ", 
+    "save"}], "*)"}]}]], "Input",
+ CellChangeTimes->{{3.8226672326039543`*^9, 3.822667236645975*^9}, {
+  3.8226673612633953`*^9, 3.82266736142723*^9}, {3.822667471952306*^9, 
+  3.822667474109358*^9}, {3.82266842077909*^9, 
+  3.822668435518032*^9}},ExpressionUUID->"9378323a-e109-4df9-95c3-\
+c72cd75857f3"],
+
+Cell["\<\
+Generate data (randomly drawing the function parameters from distributions \
+based on real data) & Export to data-file\
+\>", "Text",
+ CellChangeTimes->{{3.822668278236083*^9, 3.822668278613144*^9}, {
+   3.822668333607306*^9, 3.822668340745344*^9}, 3.822668372059928*^9, {
+   3.822668517343605*^9, 
+   3.822668550359353*^9}},ExpressionUUID->"47ceec95-d62c-41dd-b60b-\
+8f9e507f5431"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"While", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Length", "[", "HScoeffsBC", "]"}], "<", "datasize"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+      RowBox[{"Function", " ", 
+       RowBox[{"parameters", ":", " ", 
+        RowBox[{"numerator", " ", "degree"}]}]}], ",", " ", 
+      RowBox[{"list", " ", "of", " ", "numerator", " ", "coefficients"}], ",",
+       " ", 
+      RowBox[{
+      "number", " ", "of", " ", "independent", " ", "denomiator", " ", 
+       "factors"}], ",", " ", 
+      RowBox[{"denominator", " ", "weights"}], ",", " ", 
+      RowBox[{
+      "number", " ", "of", " ", "repetitions", " ", "of", " ", "denominator", 
+       " ", "weights"}]}], "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"d", " ", "=", 
+      RowBox[{"Round", "[", 
+       RowBox[{"RandomVariate", "[", 
+        RowBox[{"TruncatedDistribution", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"1", ",", "Infinity"}], "}"}], ",", 
+          RowBox[{"MixtureDistribution", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"901", ",", "345"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"NormalDistribution", "[", 
+               RowBox[{"57.2", ",", "14.4"}], "]"}], ",", 
+              RowBox[{"NormalDistribution", "[", 
+               RowBox[{"74.2", ",", "24.9"}], "]"}]}], "}"}]}], "]"}]}], 
+         "]"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"numcoefs", "=", " ", 
+      RowBox[{"Round", "[", 
+       RowBox[{"RandomVariate", "[", 
+        RowBox[{
+         RowBox[{"MixtureDistribution", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"870", ",", "41"}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"NormalDistribution", "[", 
+              RowBox[{"0", ",", "0.586"}], "]"}], ",", 
+             RowBox[{"NormalDistribution", "[", 
+              RowBox[{"0", ",", "26.8"}], "]"}]}], "}"}]}], "]"}], ",", "d"}],
+         "]"}], "]"}]}], ";", " ", "\[IndentingNewLine]", 
+     RowBox[{"r", " ", "=", " ", 
+      RowBox[{"Round", "[", 
+       RowBox[{"RandomVariate", "[", 
+        RowBox[{"TruncatedDistribution", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"1", ",", "Infinity"}], "}"}], ",", 
+          RowBox[{"MixtureDistribution", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"106", ",", "21"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"NormalDistribution", "[", 
+               RowBox[{"6.46", ",", "1.47"}], "]"}], ",", 
+              RowBox[{"NormalDistribution", "[", 
+               RowBox[{"8.35", ",", "2.91"}], "]"}]}], "}"}]}], "]"}]}], 
+         "]"}], "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"intdenomcoefs", "=", " ", 
+      RowBox[{"Round", "[", 
+       RowBox[{"RandomVariate", "[", 
+        RowBox[{
+         RowBox[{"TruncatedDistribution", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"1", ",", "Infinity"}], "}"}], ",", 
+           RowBox[{"NormalDistribution", "[", 
+            RowBox[{"1.62", ",", "4.70"}], "]"}]}], "]"}], ",", "r"}], "]"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"extdenomcoefs", " ", "=", " ", 
+      RowBox[{"Round", "[", 
+       RowBox[{"RandomVariate", "[", 
+        RowBox[{
+         RowBox[{"TruncatedDistribution", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"1", ",", "Infinity"}], "}"}], ",", 
+           RowBox[{"MixtureDistribution", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"81", ",", "32350"}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"NormalDistribution", "[", 
+                RowBox[{
+                 RowBox[{"-", "3.25"}], ",", "1.72"}], "]"}], ",", 
+               RowBox[{"NormalDistribution", "[", 
+                RowBox[{
+                 RowBox[{"-", "28.3"}], ",", "9.89"}], "]"}]}], "}"}]}], 
+            "]"}]}], "]"}], ",", "r"}], "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Total", "[", 
+         RowBox[{"(", 
+          RowBox[{"intdenomcoefs", "*", "extdenomcoefs"}], ")"}], "]"}], ">", 
+        " ", "d"}], ",", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{
+         "ensure", " ", "the", " ", "HS", " ", "expansion", " ", "will", " ", 
+          "be", " ", "non"}], "-", "terminating"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"Expansion", " ", "=", " ", 
+         RowBox[{"CoefficientList", "[", 
+          RowBox[{
+           RowBox[{"Normal", "[", 
+            RowBox[{"Series", "[", 
+             RowBox[{
+              RowBox[{"HS", "[", 
+               RowBox[{
+               "numcoefs", ",", "intdenomcoefs", ",", "extdenomcoefs", ",", 
+                "d", ",", "r"}], "]"}], ",", 
+              RowBox[{"{", 
+               RowBox[{"x", ",", "0", ",", 
+                RowBox[{"truncdegmin", "+", "numbertruncdeg", "-", "1"}]}], 
+               "}"}]}], "]"}], "]"}], ",", "x"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Min", "[", "Expansion", "]"}], "\[GreaterEqual]", "0"}], 
+          ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{
+            "ensure", " ", "all", " ", "terms", " ", "are", " ", "non"}], "-", 
+            RowBox[{
+            "negative", " ", "st", " ", "HS", " ", "mimics", " ", "this", " ",
+              "physical", " ", "requirement"}]}], "*)"}], 
+          "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"CGdimension", " ", "=", " ", 
+            RowBox[{"Coefficient", "[", 
+             RowBox[{
+              RowBox[{"Fit", "[", 
+               RowBox[{
+                RowBox[{"Partition", "[", 
+                 RowBox[{
+                  RowBox[{"Riffle", "[", 
+                   RowBox[{
+                    RowBox[{"Log", "[", 
+                    RowBox[{"Range", "[", 
+                    RowBox[{"truncdegmin", ",", 
+                    RowBox[{
+                    "truncdegmin", "+", "numbertruncdeg", "-", "1"}]}], "]"}],
+                     "]"}], ",", 
+                    RowBox[{"Log", "[", 
+                    RowBox[{"Texpansion", "[", 
+                    RowBox[{"[", 
+                    RowBox[{
+                    RowBox[{"truncdegmin", "+", "1"}], ";;"}], "]"}], "]"}], 
+                    "]"}]}], "]"}], ",", "2"}], "]"}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"1", ",", "x"}], "}"}], ",", "x"}], "]"}], ",", 
+              "x"}], "]"}]}], ";", " ", 
+           RowBox[{"(*", 
+            RowBox[{
+            "calculate", " ", "dimension", " ", "of", " ", "the", " ", "HS", 
+             " ", "coefficient", " ", "growth", " ", "with", " ", "order"}], 
+            "*)"}], "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"HSparamsBC", ",", 
+             RowBox[{"{", 
+              RowBox[{
+              "d", ",", "r", ",", "numcoefs", ",", "intdenomcoefs", ",", 
+               "extdenomcoefs", ",", "CGdimension"}], "}"}]}], "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"AppendTo", "[", 
+            RowBox[{"HScoeffsBC", ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Expansion", "[", 
+                RowBox[{"[", 
+                 RowBox[{";;", "101"}], "]"}], "]"}], ",", 
+               RowBox[{"Expansion", "[", 
+                RowBox[{"[", 
+                 RowBox[{
+                  RowBox[{"truncdegmin", "+", "1"}], ";;"}], "]"}], "]"}]}], 
+              "}"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]}], 
+      "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";"}]], "Input",
+ CellChangeTimes->{
+  3.822668284509843*^9, {3.8226683458621798`*^9, 3.822668354619543*^9}, {
+   3.8226684675476227`*^9, 3.822668502392091*^9}, {3.822668560196496*^9, 
+   3.822668742625025*^9}},ExpressionUUID->"57edceb9-ccd3-4c14-81b7-\
+f4b3d5fa7c67"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Export", "[", 
+    RowBox[{"\"\<..\\\\Data\\\\BC-fakeHSparams.txt\>\"", ",", "HSparamsBC"}], 
+    "]"}], " ", 
+   RowBox[{"(*", 
+    RowBox[{
+    "avaliable", " ", "to", " ", "output", " ", "if", " ", "wish", " ", "to", 
+     " ", "analyse", " ", "generated", " ", "data"}], "*)"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Export", "[", 
+    RowBox[{"\"\<..\\\\Data\\\\BC-fakeHS.txt\>\"", ",", "HScoeffsBC"}], "]"}],
+    " ", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"...", "confirm", " ", "correct", " ", "path", 
+     RowBox[{"(", "s", ")"}]}], "*)"}], "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.822668801044546*^9, 
+  3.822668886669012*^9}},ExpressionUUID->"b5229844-a0ca-4237-a034-\
+322e2240da96"]
+},
+WindowSize->{1377, 763},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"12.2 for Mac OS X x86 (64-bit) (December 12, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2ed4349c-7a38-4774-afba-50cb90d033bd"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1643, 33, 219, "Text",ExpressionUUID->"59e34db3-b6af-43b5-b9f7-27b3b57f7417"],
+Cell[2204, 55, 2857, 72, 157, "Input",ExpressionUUID->"95eb3a97-a0b0-421b-945a-9f76288f6861"],
+Cell[5064, 129, 247, 6, 35, "Text",ExpressionUUID->"6e999baf-2b0f-40bf-bfe6-0f13884c185c"],
+Cell[5314, 137, 3458, 90, 241, "Input",ExpressionUUID->"63460c9b-8e29-4197-aa5a-675430bf666a"],
+Cell[8775, 229, 663, 16, 73, "Input",ExpressionUUID->"076b0bb0-e0f0-462b-bd6c-10c6b2ef44cf"],
+Cell[9441, 247, 710, 17, 104, "Text",ExpressionUUID->"ced72788-73ee-42ee-a8a8-c5953714b278"],
+Cell[10154, 266, 893, 25, 30, "Input",ExpressionUUID->"7aa61bd5-53ab-4262-a9d2-b984b3571119"],
+Cell[11050, 293, 1796, 38, 94, "Input",ExpressionUUID->"2f30db35-036c-44c3-aa13-b39b6af807e3"],
+Cell[12849, 333, 310, 7, 35, "Text",ExpressionUUID->"9766d0d3-ab75-4deb-921c-5a9d8556179b"],
+Cell[13162, 342, 5723, 142, 304, "Input",ExpressionUUID->"92eef982-84fc-4c22-b1ff-63e0d68593d9"],
+Cell[CellGroupData[{
+Cell[18910, 488, 764, 19, 73, "Input",ExpressionUUID->"1ed9885e-d983-4dfc-96de-35574b08f1b5"],
+Cell[19677, 509, 312, 4, 34, "Output",ExpressionUUID->"656d3257-ec28-4f13-a829-c9851854157e"],
+Cell[19992, 515, 307, 4, 34, "Output",ExpressionUUID->"b1244150-1439-4ecb-be1b-d506256a03c9"]
+}, Open  ]],
+Cell[20314, 522, 664, 12, 104, "Text",ExpressionUUID->"24a22525-8d8e-4a96-b4ad-0361588625e4"],
+Cell[20981, 536, 1941, 54, 73, "Input",ExpressionUUID->"c84a046d-3d43-4ff7-8d35-b39fcba9bf4e"],
+Cell[22925, 592, 2147, 43, 94, "Input",ExpressionUUID->"6f514df3-9832-43e1-ad24-cdc867592ec8"],
+Cell[25075, 637, 216, 3, 35, "Text",ExpressionUUID->"5e7bfebe-2caf-403d-bc35-3fdded339836"],
+Cell[CellGroupData[{
+Cell[25316, 644, 2898, 68, 199, "Input",ExpressionUUID->"99fed337-79b3-43ad-b19e-608bb62790d4"],
+Cell[28217, 714, 219, 2, 34, "Output",ExpressionUUID->"fe32114e-c004-4ca5-88b4-e3de2d37262b"]
+}, Open  ]],
+Cell[28451, 719, 296, 6, 35, "Text",ExpressionUUID->"7aa38a09-1fd3-45af-933e-aa1809c240d6"],
+Cell[CellGroupData[{
+Cell[28772, 729, 2990, 74, 220, "Input",ExpressionUUID->"03a0d916-1ca9-4312-9524-42896030e9cc"],
+Cell[31765, 805, 190, 2, 34, "Output",ExpressionUUID->"022d8fda-77da-49bf-9a58-db3ecb38705d"]
+}, Open  ]],
+Cell[31970, 810, 974, 26, 104, "Text",ExpressionUUID->"5f551069-61fc-4aa2-bc51-778ba8a4066d"],
+Cell[32947, 838, 2194, 59, 94, "Input",ExpressionUUID->"9378323a-e109-4df9-95c3-c72cd75857f3"],
+Cell[35144, 899, 391, 8, 35, "Text",ExpressionUUID->"47ceec95-d62c-41dd-b60b-8f9e507f5431"],
+Cell[35538, 909, 8172, 202, 409, "Input",ExpressionUUID->"57edceb9-ccd3-4c14-81b7-f4b3d5fa7c67"],
+Cell[43713, 1113, 801, 20, 94, "Input",ExpressionUUID->"b5229844-a0ca-4237-a034-322e2240da96"]
+}
+]
+*)
+
