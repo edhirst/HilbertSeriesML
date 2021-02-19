@@ -21,3 +21,5 @@ Code-scripts are listed in the Scripts folder:
 ~ ML_BinaryClassification.py - 
   Python script to use ML to distinguish the refined/Palindromic-refined form of fake-generated HS, or whether the HS coefficients came from a fake-generated HS or from real HS from the GRDB, as described in sections III.C & III.D respectively. 
   Set the 'Palin_check' variable to '1'/'0' to perform the classification to distinguish HS function form or distinguishing fake from real investigations respectively; then set 'HS_low_check' variable to '1'/'0' to use the lower or higher order coefficients repsectively for ML, then run the cells sequentially.
+
+Data, Scripts, and a corresponding manual for the Complete Intersection (CI) investigation, as decribed in section III.E, are made available in their own zipped folder 'Complete_Intersection.zip'.
