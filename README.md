@@ -22,4 +22,11 @@ Code-scripts are listed in the Scripts folder:
   Python script to use ML to distinguish the refined/Palindromic-refined form of fake-generated HS, or whether the HS coefficients came from a fake-generated HS or from real HS from the GRDB, as described in sections III.C & III.D respectively. 
   Set the 'Palin_check' variable to '1'/'0' to perform the classification to distinguish HS function form or distinguishing fake from real investigations respectively; then set 'HS_low_check' variable to '1'/'0' to use the lower or higher order coefficients repsectively for ML, then run the cells sequentially.
 
-Data, Scripts, and a corresponding manual for the Complete Intersection (CI) investigation, as decribed in section III.E, are made available in their own zipped folder 'Complete_Intersection.zip'.
+~ DataGeneration_CI.nb - 
+  Mathematica notebook to generate the data used in the complete intersections (CI) investigation of section III.E.
+  The script has two subsections dependent on whether HS generated have palindromic numerators or not. 
+  Within each subsection run cells sequnetially to define the generation functions, then to generate and export the data (using the labelled subsubsections as to whether numerator coefficients or Taylor expansion coefficients are to be saved).
+
+~ ML_CompleteIntersection.py -
+  Python script to ML whether a HS corresponds to a complete intersection (CI) or not, from either numerator coefficients or Taylor expansion coefficients, as descibed in section III.E.
+  Run the script's first cell to import used libraries, run sequentially the cells of the chosen investigation to ML, then run the script's final cell to repeat the investigation with 5-fold cross-validation if desired.
