@@ -29,4 +29,8 @@ Code-scripts are listed in the Scripts folder:
 
 ~ ML_CompleteIntersection.py -
   Python script to ML whether a HS corresponds to a complete intersection (CI) or not, from either numerator coefficients or Taylor expansion coefficients, as descibed in section III.E. Please first unzip the compressed 'CI.db' datafile in the Data folder before running.
-  Run the script's first cell to import used libraries, run sequentially the cells of the chosen investigation to ML, then run the script's final cell to repeat the investigation with 5-fold cross-validation if desired.
+  Run the script's first cell to import used libraries, run sequentially the cells of the chosen investigation to ML, then run the script's final cell to repeat the investigation with 5-fold cross-validation if desired.  
+
+~ PCAs.py - 
+Python script to perform principal component analysis of the binary classification problems. Run the scripts first cell to import used libraries, then the second cell to import the data, ensuring correct filepaths. The latter cells then create and fit the scalers and pcas.
+
