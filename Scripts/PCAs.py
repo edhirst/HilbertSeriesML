@@ -69,7 +69,7 @@ pca_rf.fit(np.concatenate((transformed_fake,transformed_real)))
 pca_fake = pca_rf.transform(transformed_fake)
 pca_real = pca_rf.transform(transformed_real)
 
-#%% #Plotting
+#%% #Plotting Grenstein 2d PCA
 #Gorenstein
 plt.figure('Gorenstein PCA')
 plt.scatter(pca_palin[:,0],pca_palin[:,1],label='Gorenstein',alpha=0.1,color='blue')
@@ -82,7 +82,7 @@ for lh in leg.legendHandles:
 #plt.grid()
 #plt.savefig('./GorensteinPCA.pdf')
 
-#%% #Plotting
+#%% #Plotting Real/Fake 2d PCA
 #Real/Fake
 plt.figure('Real/Fake PCA')
 plt.scatter(pca_fake[:,0],pca_fake[:,1],label='Fake',alpha=0.3,color='blue')
@@ -94,16 +94,21 @@ leg=plt.legend(loc='upper right')
 for lh in leg.legendHandles: 
     lh.set_alpha(1)
 #plt.grid()
-#plt.savefig('./RealFakePCA.pdf')
+#plt.savefig('./RealFakePCA_2d.pdf')
 
-#%% 1d Real/Fake PCA plotting
+#%% #Plotting Real/Fake 1d PCA
 #Real/Fake
-plt.figure('Real/Fake PCA')
-plt.scatter(pca_fake[:,1],np.zeros(len(pca_fake)),label='Fake',alpha=0.3,color='blue')
-plt.scatter(pca_real[:,1],np.zeros(len(pca_real)),label='Real',alpha=0.3,color='red')
+fig = plt.figure('Real/Fake PCA')
+ax = fig.add_subplot(1, 1, 1)
+plt.scatter(pca_fake[:,0],np.zeros(len(pca_fake)),label='Fake',alpha=0.3,color='blue')
+plt.scatter(pca_real[:,0],np.zeros(len(pca_real)),label='Real',alpha=0.3,color='red')
 leg=plt.legend(loc='upper right')
 for lh in leg.legendHandles: 
     lh.set_alpha(1)
-#plt.grid()
-#plt.savefig('./RealFakePCA_1dPCA2.pdf')
+ax.spines['bottom'].set_position('zero')
+ax.spines['left'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+plt.yticks([]) 
+#plt.savefig('./RealFakePCA_1d.pdf',bbox_inches='tight')
 

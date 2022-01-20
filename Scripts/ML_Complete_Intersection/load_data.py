@@ -36,7 +36,7 @@ def load_data(n_terms):
     print("Loading data...")
 
     # load and pre-process data
-    with sqlite3.connect('../../Data/ci_big.db') as db:
+    with sqlite3.connect('../../Data/CI_big.db') as db:
         ci = pd.read_sql_query('SELECT hs,ci FROM ci;', db)
 
     ci['hs'] = ci['hs'].apply(lambda s: _string_to_list(s, n_terms))
