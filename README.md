@@ -27,7 +27,7 @@ Code-scripts are listed in the `Scripts` folder:
   The script has two subsections dependent on whether HS generated have palindromic numerators or not. 
   Within each subsection run cells sequnetially to define the generation functions, then to generate and export the data (using the labelled subsubsections as to whether numerator coefficients or Taylor expansion coefficients are to be saved).
 
-* `ML_CompleteIntersection_old.py` -
+* `ML_CI_old.py` -
   Original python script to ML whether a HS corresponds to a complete intersection (CI) or not, from either numerator coefficients or Taylor expansion coefficients, as descibed in section III.E. Please first unzip the compressed `CI.db` datafile in the Data folder before running.
   Run the script's first cell to import used libraries, run sequentially the cells of the chosen investigation to ML, then run the script's final cell to repeat the investigation with 5-fold cross-validation if desired.
   Please note the updated CI investigation is dictated in the ML_Complete_Intersection directory.  
