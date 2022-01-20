@@ -1,7 +1,7 @@
 # HilbertSeriesML
 Scripts to generate and analyse HS data.
 
-Data-files are listed in the Data folder, they provide datasets of (fake) Hilbert Series (HS) coefficients, as well as datasets of equivalent HS function parameters used in the machine learning (ML) investigations.
+Data-files are listed in the `Data` folder, they provide datasets of (fake) Hilbert Series (HS) coefficients, as well as datasets of equivalent HS function parameters used in the machine learning (ML) investigations.
 
 Code-scripts are listed in the `Scripts` folder:
 
@@ -21,11 +21,6 @@ Code-scripts are listed in the `Scripts` folder:
 * `ML_BinaryClassification.py` - 
   Python script to use ML to distinguish the refined/Palindromic-refined form of fake-generated HS, or whether the HS coefficients came from a fake-generated HS or from real HS from the GRDB, as described in sections III.C & III.D respectively. 
   Set the 'Palin_check' variable to '1'/'0' to perform the classification to distinguish HS function form or distinguishing fake from real investigations respectively; then set 'HS_low_check' variable to '1'/'0' to use the lower or higher order coefficients repsectively for ML, then run the cells sequentially.
-
-* `DataGeneration_CI.nb` - 
-  Mathematica notebook to generate the data used in the complete intersections (CI) investigation of section III.E.
-  The script has two subsections dependent on whether HS generated have palindromic numerators or not. 
-  Within each subsection run cells sequnetially to define the generation functions, then to generate and export the data (using the labelled subsubsections as to whether numerator coefficients or Taylor expansion coefficients are to be saved).    
 
 * `ML_Complete_Intersection/` -
   Dicrectory contains python scripts to ML wether a fake HS corresponds to a complete intersection (CI) or not.
