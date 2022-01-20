@@ -32,7 +32,7 @@ from pprint import pprint
 #############################################################################################################
 #%% (1a) #ML CI property from HS numerator coefficients using NNs (where these coefficients are not palindromic) 
 #Import database
-with sqlite3.connect("../../Data/CI.db") as db:
+with sqlite3.connect("../../../Data/CI.db") as db:
     c = db.cursor()
     df = pandas.read_sql_query("SELECT hs,ci FROM numerator_np", db)
 # cast 'hilb'-column from a column of strings into a column of lists of ints

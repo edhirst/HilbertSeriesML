@@ -25,12 +25,7 @@ Code-scripts are listed in the `Scripts` folder:
 * `DataGeneration_CI.nb` - 
   Mathematica notebook to generate the data used in the complete intersections (CI) investigation of section III.E.
   The script has two subsections dependent on whether HS generated have palindromic numerators or not. 
-  Within each subsection run cells sequnetially to define the generation functions, then to generate and export the data (using the labelled subsubsections as to whether numerator coefficients or Taylor expansion coefficients are to be saved).
-
-* `ML_CI_old.py` -
-  Original python script to ML whether a HS corresponds to a complete intersection (CI) or not, from either numerator coefficients or Taylor expansion coefficients, as descibed in section III.E. Please first unzip the compressed `CI.db` datafile in the Data folder before running.
-  Run the script's first cell to import used libraries, run sequentially the cells of the chosen investigation to ML, then run the script's final cell to repeat the investigation with 5-fold cross-validation if desired.
-  Please note the updated CI investigation is dictated in the ML_Complete_Intersection directory.  
+  Within each subsection run cells sequnetially to define the generation functions, then to generate and export the data (using the labelled subsubsections as to whether numerator coefficients or Taylor expansion coefficients are to be saved).    
 
 * `ML_Complete_Intersection/` -
   Dicrectory contains python scripts to ML wether a fake HS corresponds to a complete intersection (CI) or not.
@@ -40,6 +35,7 @@ Code-scripts are listed in the `Scripts` folder:
   Run `ml_ci_rf.py` for the principal component analysis + random forest experiment.
   Run `ml_ci_nn.py` for the principal component analysis + neural network experiment.
   A list of parameters at the beginning of each script facilitates the fine-tuning of the machine learning investigations.
+  Please note the previous iteration of this subinvestigation has respective scripts provided in the PreviousWork subdirectory.
 
 * `PCAs.py` -
   Python script to perform principal component analysis of the binary classification problems. Run the scripts first cell to import used libraries, then the second cell to import the data, ensuring correct filepaths. The latter cells then create and fit the scalers and pcas.
