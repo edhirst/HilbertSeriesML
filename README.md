@@ -33,5 +33,5 @@ Code-scripts are listed in the `Scripts` folder:
   Please note the previous iteration of this subinvestigation has respective scripts provided in the PreviousWork subdirectory.
 
 * `PCAs.py` -
-  Python script to perform principal component analysis of the binary classification problems. Run the scripts first cell to import used libraries, then the second cell to import the data, ensuring correct filepaths. The latter cells then create and fit the scalers and pcas.
+  Python script to perform principal component analysis of the binary classification problems. Run the scripts first cell to import used libraries, then the second cell to import the data, ensuring correct filepaths. The latter cells then create and fit the scalers and pcas, with a boolean variable to discern PCA for the low or high order terms in the Gorenstein HS.    
 
