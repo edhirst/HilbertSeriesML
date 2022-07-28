@@ -35,3 +35,18 @@ Code-scripts are listed in the `Scripts` folder:
 * `PCAs.py` -
   Python script to perform principal component analysis of the binary classification problems. Run the scripts first cell to import used libraries, then the second cell to import the data, ensuring correct filepaths. The latter cells then create and fit the scalers and pcas, with a boolean variable to discern PCA for the low or high order terms in the Gorenstein HS.    
 
+# BibTeX Citation
+``` 
+@article{Bao:2021auj,
+    author = "Bao, Jiakang and He, Yang-Hui and Hirst, Edward and Hofscheier, Johannes and Kasprzyk, Alexander and Majumder, Suvajit",
+    title = "{Hilbert series, machine learning, and applications to physics}",
+    eprint = "2103.13436",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-th",
+    doi = "10.1016/j.physletb.2022.136966",
+    journal = "Phys. Lett. B",
+    volume = "827",
+    pages = "136966",
+    year = "2022"
+}
+```
